@@ -683,11 +683,12 @@ function Library:CreateBind(section, name, defaultKey, callback)
     Line.BackgroundTransparency = 0.95
     Line.Parent = BindZone
     
-    local Bind = Instance.new("Frame")
+    local Bind = Instance.new("TextButton")
     Bind.Name = "Bind"
     Bind.Size = UDim2.new(0, 60, 0, 15)
     Bind.Position = UDim2.new(0.6, 0, 0.233, 0)
     Bind.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
+    Bind.Text = ""
     Bind.Parent = BindZone
     
     local UICorner = Instance.new("UICorner")
