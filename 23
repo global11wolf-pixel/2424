@@ -273,51 +273,54 @@ function UI:CreateWindow(title)
             self:SelectTab(tab)
         end
         
-        -- Функция создания секции
-        function tab:CreateSection(name)
-            local section = {}
-            section.Name = name
-            section.Elements = {}
-            
-            local sectionY = 0
-            for _, s in ipairs(self.Sections) do
-                sectionY = sectionY + s._frame.Size.Y.Offset + 10
-            end
-            
-            local sectionFrame = Instance.new("Frame")
-            sectionFrame.Name = "Section"
-            sectionFrame.Size = UDim2.new(0, 210, 0, 0)
-            sectionFrame.Position = UDim2.new(0.023, 0, 0, sectionY)
-            sectionFrame.BackgroundColor3 = SectionColor
-            sectionFrame.BackgroundTransparency = 0.6
-            sectionFrame.BorderSizePixel = 0
-            createCorner(sectionFrame)
-            createStroke(sectionFrame)
-            sectionFrame.Parent = self._elementZone
-            
-            local sectionName = Instance.new("TextLabel")
-            sectionName.Name = "SectionName"
-            sectionName.Size = UDim2.new(0, 78, 0, 19)
-            sectionName.Position = UDim2.new(0.038, 0, -0.193, 0)
-            sectionName.BackgroundTransparency = 1
-            sectionName.Text = name
-            sectionName.TextColor3 = DisabledColor
-            sectionName.TextSize = 12
-            sectionName.Font = Enum.Font.SourceSansBold
-            sectionName.TextXAlignment = Enum.TextXAlignment.Left
-            sectionName.Parent = sectionFrame
-            
-            section._frame = sectionFrame
-            section._name = sectionName
-            
-            -- Обновление размера ElementZone
-            local function updateCanvasSize()
-                local totalHeight = 0
+            -- Функция создания секции
+            function tab:CreateSection(name)
+                local section = {}
+                section.Name = name
+                section.Elements = {}
+                
+                local sectionY = 0
                 for _, s in ipairs(self.Sections) do
-                    totalHeight = totalHeight + s._frame.Size.Y.Offset + 10
+                    sectionY = sectionY + s._frame.Size.Y.Offset + 10
                 end
-                self._elementZone.CanvasSize = UDim2.new(0, 0, 0, totalHeight)
-            end
+                
+                local sectionFrame = Instance.new("Frame")
+                sectionFrame.Name = "Section"
+                sectionFrame.Size = UDim2.new(0, 210, 0, 0)
+                sectionFrame.Position = UDim2.new(0.023, 0, 0, sectionY)
+                sectionFrame.BackgroundColor3 = SectionColor
+                sectionFrame.BackgroundTransparency = 0.6
+                sectionFrame.BorderSizePixel = 0
+                createCorner(sectionFrame)
+                createStroke(sectionFrame)
+                sectionFrame.Parent = self._elementZone
+                
+                local sectionName = Instance.new("TextLabel")
+                sectionName.Name = "SectionName"
+                sectionName.Size = UDim2.new(0, 78, 0, 19)
+                sectionName.Position = UDim2.new(0.038, 0, -0.193, 0)
+                sectionName.BackgroundTransparency = 1
+                sectionName.Text = name
+                sectionName.TextColor3 = DisabledColor
+                sectionName.TextSize = 12
+                sectionName.Font = Enum.Font.SourceSansBold
+                sectionName.TextXAlignment = Enum.TextXAlignment.Left
+                sectionName.Parent = sectionFrame
+                
+                section._frame = sectionFrame
+                section._name = sectionName
+                
+                -- Обновление размера ElementZone и позиций секций
+                local function updateCanvasSize()
+                    local totalHeight = 0
+                    local currentY = 0
+                    for _, s in ipairs(self.Sections) do
+                        s._frame.Position = UDim2.new(0.023, 0, 0, currentY)
+                        totalHeight = totalHeight + s._frame.Size.Y.Offset + 10
+                        currentY = currentY + s._frame.Size.Y.Offset + 10
+                    end
+                    self._elementZone.CanvasSize = UDim2.new(0, 0, 0, math.max(totalHeight, 309))
+                end
             
             -- Функция создания тоггла
             function section:CreateToggle(name, callback, default)
@@ -404,7 +407,11 @@ function UI:CreateWindow(title)
                 end)
                 
                 table.insert(self.Elements, toggle)
-                self._frame.Size = UDim2.new(0, 210, 0, self._frame.Size.Y.Offset + 35)
+                local newHeight = 0
+                for _, e in ipairs(self.Elements) do
+                    newHeight = newHeight + e._zone.Size.Y.Offset + 5
+                end
+                self._frame.Size = UDim2.new(0, 210, 0, math.max(newHeight, 0))
                 updateCanvasSize()
                 
                 function toggle:Set(value)
@@ -493,7 +500,11 @@ function UI:CreateWindow(title)
                 end)
                 
                 table.insert(self.Elements, button)
-                self._frame.Size = UDim2.new(0, 210, 0, self._frame.Size.Y.Offset + 40)
+                local newHeight = 0
+                for _, e in ipairs(self.Elements) do
+                    newHeight = newHeight + e._zone.Size.Y.Offset + 5
+                end
+                self._frame.Size = UDim2.new(0, 210, 0, math.max(newHeight, 0))
                 updateCanvasSize()
                 
                 return button
@@ -615,7 +626,11 @@ function UI:CreateWindow(title)
                 end)
                 
                 table.insert(self.Elements, slider)
-                self._frame.Size = UDim2.new(0, 210, 0, self._frame.Size.Y.Offset + 35)
+                local newHeight = 0
+                for _, e in ipairs(self.Elements) do
+                    newHeight = newHeight + e._zone.Size.Y.Offset + 5
+                end
+                self._frame.Size = UDim2.new(0, 210, 0, math.max(newHeight, 0))
                 updateCanvasSize()
                 
                 function slider:Set(value)
@@ -722,7 +737,11 @@ function UI:CreateWindow(title)
                 end)
                 
                 table.insert(self.Elements, bind)
-                self._frame.Size = UDim2.new(0, 210, 0, self._frame.Size.Y.Offset + 35)
+                local newHeight = 0
+                for _, e in ipairs(self.Elements) do
+                    newHeight = newHeight + e._zone.Size.Y.Offset + 5
+                end
+                self._frame.Size = UDim2.new(0, 210, 0, math.max(newHeight, 0))
                 updateCanvasSize()
                 
                 function bind:Set(key)
@@ -830,7 +849,11 @@ function UI:CreateWindow(title)
                 end)
                 
                 table.insert(self.Elements, input)
-                self._frame.Size = UDim2.new(0, 210, 0, self._frame.Size.Y.Offset + 45)
+                local newHeight = 0
+                for _, e in ipairs(self.Elements) do
+                    newHeight = newHeight + e._zone.Size.Y.Offset + 5
+                end
+                self._frame.Size = UDim2.new(0, 210, 0, math.max(newHeight, 0))
                 updateCanvasSize()
                 
                 function input:Set(value)
@@ -998,7 +1021,11 @@ function UI:CreateWindow(title)
                 end)
                 
                 table.insert(self.Elements, dropdown)
-                self._frame.Size = UDim2.new(0, 210, 0, self._frame.Size.Y.Offset + 40)
+                local newHeight = 0
+                for _, e in ipairs(self.Elements) do
+                    newHeight = newHeight + e._zone.Size.Y.Offset + 5
+                end
+                self._frame.Size = UDim2.new(0, 210, 0, math.max(newHeight, 0))
                 updateCanvasSize()
                 
                 function dropdown:Set(option)
