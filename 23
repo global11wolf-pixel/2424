@@ -231,6 +231,9 @@ function UI:CreateWindow(title)
         tabButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
         tabButton.BackgroundTransparency = #self.Tabs == 0 and 0.9 or 1
         tabButton.Text = ""
+        tabButton.Active = true
+        tabButton.Selectable = true
+        tabButton.ZIndex = 10
         createCorner(tabButton)
         tabButton.Parent = self._tabZone
         
@@ -352,6 +355,9 @@ function UI:CreateWindow(title)
                 toggleBtn.Position = UDim2.new(0.761, 0, 0.233, 0)
                 toggleBtn.BackgroundColor3 = toggle.Value and AccentColor or Color3.fromRGB(29, 29, 29)
                 toggleBtn.Text = ""
+                toggleBtn.Active = true
+                toggleBtn.Selectable = true
+                toggleBtn.ZIndex = 10
                 createCorner(toggleBtn, 8)
                 toggleBtn.Parent = toggleZone
                 
@@ -392,7 +398,9 @@ function UI:CreateWindow(title)
                 end
                 
                 toggleBtn.MouseButton1Click:Connect(function()
-                    setValue(not toggle.Value)
+                    pcall(function()
+                        setValue(not toggle.Value)
+                    end)
                 end)
                 
                 table.insert(self.Elements, toggle)
@@ -428,15 +436,44 @@ function UI:CreateWindow(title)
                 buttonZone.Parent = self._frame
                 
                 local buttonBtn = Instance.new("TextButton")
-                buttonBtn.Size = UDim2.new(0, 90, 0, 25)
+                buttonBtn.Size = UDim2.new(0, 190, 0, 25)
                 buttonBtn.Position = UDim2.new(0.067, 0, 0.138, 0)
                 buttonBtn.BackgroundColor3 = AccentColor
                 buttonBtn.Text = name
                 buttonBtn.TextColor3 = TextColor
                 buttonBtn.TextSize = 15
                 buttonBtn.Font = Enum.Font.SourceSansBold
+                buttonBtn.Active = true
+                buttonBtn.Selectable = true
+                buttonBtn.ZIndex = 10
                 createCorner(buttonBtn, 5)
                 buttonBtn.Parent = buttonZone
+                
+                -- Эффект при наведении
+                buttonBtn.MouseEnter:Connect(function()
+                    TweenService:Create(buttonBtn, TweenInfo.new(0.2), {
+                        BackgroundColor3 = Color3.fromRGB(170, 37, 255)
+                    }):Play()
+                end)
+                
+                buttonBtn.MouseLeave:Connect(function()
+                    TweenService:Create(buttonBtn, TweenInfo.new(0.2), {
+                        BackgroundColor3 = AccentColor
+                    }):Play()
+                end)
+                
+                -- Эффект при нажатии
+                buttonBtn.MouseButton1Down:Connect(function()
+                    TweenService:Create(buttonBtn, TweenInfo.new(0.1), {
+                        BackgroundColor3 = Color3.fromRGB(130, 10, 200)
+                    }):Play()
+                end)
+                
+                buttonBtn.MouseButton1Up:Connect(function()
+                    TweenService:Create(buttonBtn, TweenInfo.new(0.1), {
+                        BackgroundColor3 = AccentColor
+                    }):Play()
+                end)
                 
                 local line = Instance.new("Frame")
                 line.Name = "Line"
@@ -450,7 +487,9 @@ function UI:CreateWindow(title)
                 button._button = buttonBtn
                 
                 buttonBtn.MouseButton1Click:Connect(function()
-                    if callback then callback() end
+                    if callback then 
+                        pcall(callback)
+                    end
                 end)
                 
                 table.insert(self.Elements, button)
@@ -627,6 +666,9 @@ function UI:CreateWindow(title)
                 bindFrame.Position = UDim2.new(0.6, 0, 0.233, 0)
                 bindFrame.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
                 bindFrame.Text = ""
+                bindFrame.Active = true
+                bindFrame.Selectable = true
+                bindFrame.ZIndex = 10
                 createCorner(bindFrame, 4)
                 createStroke(bindFrame)
                 bindFrame.Parent = bindZone
@@ -731,6 +773,9 @@ function UI:CreateWindow(title)
                 inputFrame.Position = UDim2.new(0.091, 0, 0.35, 0)
                 inputFrame.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
                 inputFrame.Text = ""
+                inputFrame.Active = true
+                inputFrame.Selectable = true
+                inputFrame.ZIndex = 10
                 createCorner(inputFrame, 4)
                 createStroke(inputFrame)
                 inputFrame.Parent = inputZone
@@ -840,6 +885,9 @@ function UI:CreateWindow(title)
                 dropdownButton.Position = UDim2.new(0.423, 0, 0.134, 0)
                 dropdownButton.BackgroundColor3 = Color3.fromRGB(29, 29, 29)
                 dropdownButton.Text = ""
+                dropdownButton.Active = true
+                dropdownButton.Selectable = true
+                dropdownButton.ZIndex = 10
                 dropdownButton.ClipsDescendants = true
                 createCorner(dropdownButton, 4)
                 createStroke(dropdownButton)
@@ -919,6 +967,9 @@ function UI:CreateWindow(title)
                         optionBtn.TextColor3 = TextColor
                         optionBtn.TextSize = 11
                         optionBtn.Font = Enum.Font.SourceSans
+                        optionBtn.Active = true
+                        optionBtn.Selectable = true
+                        optionBtn.ZIndex = 15
                         optionBtn.Parent = dropdownList
                         
                         optionBtn.MouseButton1Click:Connect(function()
