@@ -328,9 +328,12 @@ function UI:CreateWindow(title)
                 toggle.Value = default or false
                 toggle.Callback = callback
                 
+                -- Рассчитываем позицию на основе уже существующих элементов
                 local toggleY = 0
                 for _, e in ipairs(self.Elements) do
-                    toggleY = toggleY + e._zone.Size.Y.Offset + 5
+                    if e._zone then
+                        toggleY = toggleY + e._zone.Size.Y.Offset + 5
+                    end
                 end
                 
                 local toggleZone = Instance.new("Frame")
@@ -339,6 +342,9 @@ function UI:CreateWindow(title)
                 toggleZone.Position = UDim2.new(0, 0, 0, toggleY)
                 toggleZone.BackgroundTransparency = 1
                 toggleZone.Parent = self._frame
+                
+                -- Сохраняем ссылку на зону сразу
+                toggle._zone = toggleZone
                 
                 local toggleName = Instance.new("TextLabel")
                 toggleName.Name = "ToggleName"
@@ -381,7 +387,6 @@ function UI:CreateWindow(title)
                 line.BackgroundTransparency = 0.95
                 line.Parent = toggleZone
                 
-                toggle._zone = toggleZone
                 toggle._name = toggleName
                 toggle._button = toggleBtn
                 toggle._mover = toggleMover
@@ -430,9 +435,12 @@ function UI:CreateWindow(title)
                 local button = {}
                 button.Callback = callback
                 
+                -- Рассчитываем позицию на основе уже существующих элементов
                 local buttonY = 0
                 for _, e in ipairs(self.Elements) do
-                    buttonY = buttonY + e._zone.Size.Y.Offset + 5
+                    if e._zone then
+                        buttonY = buttonY + e._zone.Size.Y.Offset + 5
+                    end
                 end
                 
                 local buttonZone = Instance.new("Frame")
@@ -441,6 +449,9 @@ function UI:CreateWindow(title)
                 buttonZone.Position = UDim2.new(0, 0, 0, buttonY)
                 buttonZone.BackgroundTransparency = 1
                 buttonZone.Parent = self._frame
+                
+                -- Сохраняем ссылку на зону сразу
+                button._zone = buttonZone
                 
                 local buttonBtn = Instance.new("TextButton")
                 buttonBtn.Size = UDim2.new(0, 190, 0, 25)
@@ -490,7 +501,6 @@ function UI:CreateWindow(title)
                 line.BackgroundTransparency = 0.95
                 line.Parent = buttonZone
                 
-                button._zone = buttonZone
                 button._button = buttonBtn
                 
                 buttonBtn.MouseButton1Click:Connect(function()
@@ -520,7 +530,9 @@ function UI:CreateWindow(title)
                 
                 local sliderY = 0
                 for _, e in ipairs(self.Elements) do
-                    sliderY = sliderY + e._zone.Size.Y.Offset + 5
+                    if e._zone then
+                        sliderY = sliderY + e._zone.Size.Y.Offset + 5
+                    end
                 end
                 
                 local sliderZone = Instance.new("Frame")
@@ -529,6 +541,9 @@ function UI:CreateWindow(title)
                 sliderZone.Position = UDim2.new(0, 0, 0, sliderY)
                 sliderZone.BackgroundTransparency = 1
                 sliderZone.Parent = self._frame
+                
+                -- Сохраняем ссылку на зону сразу
+                slider._zone = sliderZone
                 
                 local sliderName = Instance.new("TextLabel")
                 sliderName.Name = "SliderName"
@@ -587,7 +602,6 @@ function UI:CreateWindow(title)
                 line.BackgroundTransparency = 0.95
                 line.Parent = sliderZone
                 
-                slider._zone = sliderZone
                 slider._line = sliderLine
                 slider._knob = sliderKnob
                 slider._valueLabel = sliderValueLabel
@@ -653,7 +667,9 @@ function UI:CreateWindow(title)
                 
                 local bindY = 0
                 for _, e in ipairs(self.Elements) do
-                    bindY = bindY + e._zone.Size.Y.Offset + 5
+                    if e._zone then
+                        bindY = bindY + e._zone.Size.Y.Offset + 5
+                    end
                 end
                 
                 local bindZone = Instance.new("Frame")
@@ -662,6 +678,9 @@ function UI:CreateWindow(title)
                 bindZone.Position = UDim2.new(0, 0, 0, bindY)
                 bindZone.BackgroundTransparency = 1
                 bindZone.Parent = self._frame
+                
+                -- Сохраняем ссылку на зону сразу
+                bind._zone = bindZone
                 
                 local bindName = Instance.new("TextLabel")
                 bindName.Name = "BindName"
@@ -706,7 +725,6 @@ function UI:CreateWindow(title)
                 line.BackgroundTransparency = 0.95
                 line.Parent = bindZone
                 
-                bind._zone = bindZone
                 bind._frame = bindFrame
                 bind._keyLabel = bindKeyLabel
                 
@@ -764,7 +782,9 @@ function UI:CreateWindow(title)
                 
                 local inputY = 0
                 for _, e in ipairs(self.Elements) do
-                    inputY = inputY + e._zone.Size.Y.Offset + 5
+                    if e._zone then
+                        inputY = inputY + e._zone.Size.Y.Offset + 5
+                    end
                 end
                 
                 local inputZone = Instance.new("Frame")
@@ -773,6 +793,9 @@ function UI:CreateWindow(title)
                 inputZone.Position = UDim2.new(0, 0, 0, inputY)
                 inputZone.BackgroundTransparency = 1
                 inputZone.Parent = self._frame
+                
+                -- Сохраняем ссылку на зону сразу
+                input._zone = inputZone
                 
                 local inputName = Instance.new("TextLabel")
                 inputName.Name = "InputName"
@@ -820,7 +843,6 @@ function UI:CreateWindow(title)
                 line.BackgroundTransparency = 0.95
                 line.Parent = inputZone
                 
-                input._zone = inputZone
                 input._frame = inputFrame
                 input._valueLabel = inputValueLabel
                 
@@ -879,7 +901,9 @@ function UI:CreateWindow(title)
                 
                 local dropdownY = 0
                 for _, e in ipairs(self.Elements) do
-                    dropdownY = dropdownY + e._zone.Size.Y.Offset + 5
+                    if e._zone then
+                        dropdownY = dropdownY + e._zone.Size.Y.Offset + 5
+                    end
                 end
                 
                 local dropdownZone = Instance.new("Frame")
@@ -889,6 +913,9 @@ function UI:CreateWindow(title)
                 dropdownZone.BackgroundTransparency = 1
                 dropdownZone.ClipsDescendants = true
                 dropdownZone.Parent = self._frame
+                
+                -- Сохраняем ссылку на зону сразу
+                dropdown._zone = dropdownZone
                 
                 local dropdownName = Instance.new("TextLabel")
                 dropdownName.Name = "DropdownName"
@@ -967,7 +994,6 @@ function UI:CreateWindow(title)
                 createStroke(dropdownList)
                 dropdownList.Parent = dropdownButton
                 
-                dropdown._zone = dropdownZone
                 dropdown._button = dropdownButton
                 dropdown._selected = selectedLabel
                 dropdown._arrow = arrow
