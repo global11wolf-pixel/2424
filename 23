@@ -1,6 +1,10 @@
 -- PizdecWare UI Library
 -- Creator: FelSSJ
 -- Version: 2.0
+--
+-- Использование:
+-- local UI = loadstring(game:HttpGet('https://raw.githubusercontent.com/global11wolf-pixel/2424/refs/heads/main/23'))()
+-- local window = UI:CreateWindow("My Script")
 
 local Player = game:GetService("Players").LocalPlayer
 local TweenService = game:GetService("TweenService")
@@ -1098,4 +1102,5 @@ function UI:CreateWindow(title)
     return window
 end
 
+-- Возвращаем библиотеку
 return UI
