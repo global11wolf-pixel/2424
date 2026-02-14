@@ -328,18 +328,10 @@ function UI:CreateWindow(title)
                 toggle.Value = default or false
                 toggle.Callback = callback
                 
-                -- Рассчитываем позицию на основе уже существующих элементов
-                local toggleY = 0
-                for _, e in ipairs(self.Elements) do
-                    if e._zone then
-                        toggleY = toggleY + e._zone.Size.Y.Offset + 5
-                    end
-                end
-                
                 local toggleZone = Instance.new("Frame")
                 toggleZone.Name = "ToggleZone"
                 toggleZone.Size = UDim2.new(0, 210, 0, 30)
-                toggleZone.Position = UDim2.new(0, 0, 0, toggleY)
+                toggleZone.Position = UDim2.new(0, 0, 0, 0) -- Временная позиция, будет пересчитана
                 toggleZone.BackgroundTransparency = 1
                 toggleZone.Parent = self._frame
                 
@@ -411,12 +403,20 @@ function UI:CreateWindow(title)
                     end)
                 end)
                 
+                -- Добавляем элемент в таблицу СРАЗУ после создания всех частей
                 table.insert(self.Elements, toggle)
-                local newHeight = 0
+                
+                -- Пересчитываем позиции всех элементов
+                local currentY = 0
                 for _, e in ipairs(self.Elements) do
-                    newHeight = newHeight + e._zone.Size.Y.Offset + 5
+                    if e._zone then
+                        e._zone.Position = UDim2.new(0, 0, 0, currentY)
+                        currentY = currentY + e._zone.Size.Y.Offset + 5
+                    end
                 end
-                self._frame.Size = UDim2.new(0, 210, 0, math.max(newHeight, 0))
+                
+                -- Обновляем размер секции
+                self._frame.Size = UDim2.new(0, 210, 0, math.max(currentY, 0))
                 updateCanvasSize()
                 
                 function toggle:Set(value)
@@ -435,18 +435,10 @@ function UI:CreateWindow(title)
                 local button = {}
                 button.Callback = callback
                 
-                -- Рассчитываем позицию на основе уже существующих элементов
-                local buttonY = 0
-                for _, e in ipairs(self.Elements) do
-                    if e._zone then
-                        buttonY = buttonY + e._zone.Size.Y.Offset + 5
-                    end
-                end
-                
                 local buttonZone = Instance.new("Frame")
                 buttonZone.Name = "ButtonZone"
                 buttonZone.Size = UDim2.new(0, 210, 0, 35)
-                buttonZone.Position = UDim2.new(0, 0, 0, buttonY)
+                buttonZone.Position = UDim2.new(0, 0, 0, 0) -- Временная позиция, будет пересчитана
                 buttonZone.BackgroundTransparency = 1
                 buttonZone.Parent = self._frame
                 
@@ -509,12 +501,20 @@ function UI:CreateWindow(title)
                     end
                 end)
                 
+                -- Добавляем элемент в таблицу СРАЗУ после создания всех частей
                 table.insert(self.Elements, button)
-                local newHeight = 0
+                
+                -- Пересчитываем позиции всех элементов
+                local currentY = 0
                 for _, e in ipairs(self.Elements) do
-                    newHeight = newHeight + e._zone.Size.Y.Offset + 5
+                    if e._zone then
+                        e._zone.Position = UDim2.new(0, 0, 0, currentY)
+                        currentY = currentY + e._zone.Size.Y.Offset + 5
+                    end
                 end
-                self._frame.Size = UDim2.new(0, 210, 0, math.max(newHeight, 0))
+                
+                -- Обновляем размер секции
+                self._frame.Size = UDim2.new(0, 210, 0, math.max(currentY, 0))
                 updateCanvasSize()
                 
                 return button
@@ -528,17 +528,10 @@ function UI:CreateWindow(title)
                 slider.Value = default or 50
                 slider.Callback = callback
                 
-                local sliderY = 0
-                for _, e in ipairs(self.Elements) do
-                    if e._zone then
-                        sliderY = sliderY + e._zone.Size.Y.Offset + 5
-                    end
-                end
-                
                 local sliderZone = Instance.new("Frame")
                 sliderZone.Name = "SliderZone"
                 sliderZone.Size = UDim2.new(0, 210, 0, 30)
-                sliderZone.Position = UDim2.new(0, 0, 0, sliderY)
+                sliderZone.Position = UDim2.new(0, 0, 0, 0) -- Временная позиция, будет пересчитана
                 sliderZone.BackgroundTransparency = 1
                 sliderZone.Parent = self._frame
                 
@@ -639,12 +632,20 @@ function UI:CreateWindow(title)
                     end
                 end)
                 
+                -- Добавляем элемент в таблицу СРАЗУ после создания всех частей
                 table.insert(self.Elements, slider)
-                local newHeight = 0
+                
+                -- Пересчитываем позиции всех элементов
+                local currentY = 0
                 for _, e in ipairs(self.Elements) do
-                    newHeight = newHeight + e._zone.Size.Y.Offset + 5
+                    if e._zone then
+                        e._zone.Position = UDim2.new(0, 0, 0, currentY)
+                        currentY = currentY + e._zone.Size.Y.Offset + 5
+                    end
                 end
-                self._frame.Size = UDim2.new(0, 210, 0, math.max(newHeight, 0))
+                
+                -- Обновляем размер секции
+                self._frame.Size = UDim2.new(0, 210, 0, math.max(currentY, 0))
                 updateCanvasSize()
                 
                 function slider:Set(value)
@@ -665,17 +666,10 @@ function UI:CreateWindow(title)
                 bind.Callback = callback
                 bind.Listening = false
                 
-                local bindY = 0
-                for _, e in ipairs(self.Elements) do
-                    if e._zone then
-                        bindY = bindY + e._zone.Size.Y.Offset + 5
-                    end
-                end
-                
                 local bindZone = Instance.new("Frame")
                 bindZone.Name = "BindZone"
                 bindZone.Size = UDim2.new(0, 210, 0, 30)
-                bindZone.Position = UDim2.new(0, 0, 0, bindY)
+                bindZone.Position = UDim2.new(0, 0, 0, 0) -- Временная позиция, будет пересчитана
                 bindZone.BackgroundTransparency = 1
                 bindZone.Parent = self._frame
                 
@@ -754,12 +748,20 @@ function UI:CreateWindow(title)
                     end
                 end)
                 
+                -- Добавляем элемент в таблицу СРАЗУ после создания всех частей
                 table.insert(self.Elements, bind)
-                local newHeight = 0
+                
+                -- Пересчитываем позиции всех элементов
+                local currentY = 0
                 for _, e in ipairs(self.Elements) do
-                    newHeight = newHeight + e._zone.Size.Y.Offset + 5
+                    if e._zone then
+                        e._zone.Position = UDim2.new(0, 0, 0, currentY)
+                        currentY = currentY + e._zone.Size.Y.Offset + 5
+                    end
                 end
-                self._frame.Size = UDim2.new(0, 210, 0, math.max(newHeight, 0))
+                
+                -- Обновляем размер секции
+                self._frame.Size = UDim2.new(0, 210, 0, math.max(currentY, 0))
                 updateCanvasSize()
                 
                 function bind:Set(key)
@@ -780,17 +782,10 @@ function UI:CreateWindow(title)
                 input.Value = ""
                 input.Callback = callback
                 
-                local inputY = 0
-                for _, e in ipairs(self.Elements) do
-                    if e._zone then
-                        inputY = inputY + e._zone.Size.Y.Offset + 5
-                    end
-                end
-                
                 local inputZone = Instance.new("Frame")
                 inputZone.Name = "InputZone"
                 inputZone.Size = UDim2.new(0, 210, 0, 40)
-                inputZone.Position = UDim2.new(0, 0, 0, inputY)
+                inputZone.Position = UDim2.new(0, 0, 0, 0) -- Временная позиция, будет пересчитана
                 inputZone.BackgroundTransparency = 1
                 inputZone.Parent = self._frame
                 
@@ -870,12 +865,20 @@ function UI:CreateWindow(title)
                     end)
                 end)
                 
+                -- Добавляем элемент в таблицу СРАЗУ после создания всех частей
                 table.insert(self.Elements, input)
-                local newHeight = 0
+                
+                -- Пересчитываем позиции всех элементов
+                local currentY = 0
                 for _, e in ipairs(self.Elements) do
-                    newHeight = newHeight + e._zone.Size.Y.Offset + 5
+                    if e._zone then
+                        e._zone.Position = UDim2.new(0, 0, 0, currentY)
+                        currentY = currentY + e._zone.Size.Y.Offset + 5
+                    end
                 end
-                self._frame.Size = UDim2.new(0, 210, 0, math.max(newHeight, 0))
+                
+                -- Обновляем размер секции
+                self._frame.Size = UDim2.new(0, 210, 0, math.max(currentY, 0))
                 updateCanvasSize()
                 
                 function input:Set(value)
@@ -899,17 +902,10 @@ function UI:CreateWindow(title)
                 dropdown.Callback = callback
                 dropdown.Open = false
                 
-                local dropdownY = 0
-                for _, e in ipairs(self.Elements) do
-                    if e._zone then
-                        dropdownY = dropdownY + e._zone.Size.Y.Offset + 5
-                    end
-                end
-                
                 local dropdownZone = Instance.new("Frame")
                 dropdownZone.Name = "DropdownZone"
                 dropdownZone.Size = UDim2.new(0, 210, 0, 35)
-                dropdownZone.Position = UDim2.new(0, 0, 0, dropdownY)
+                dropdownZone.Position = UDim2.new(0, 0, 0, 0) -- Временная позиция, будет пересчитана
                 dropdownZone.BackgroundTransparency = 1
                 dropdownZone.ClipsDescendants = true
                 dropdownZone.Parent = self._frame
@@ -1046,12 +1042,20 @@ function UI:CreateWindow(title)
                     }):Play()
                 end)
                 
+                -- Добавляем элемент в таблицу СРАЗУ после создания всех частей
                 table.insert(self.Elements, dropdown)
-                local newHeight = 0
+                
+                -- Пересчитываем позиции всех элементов
+                local currentY = 0
                 for _, e in ipairs(self.Elements) do
-                    newHeight = newHeight + e._zone.Size.Y.Offset + 5
+                    if e._zone then
+                        e._zone.Position = UDim2.new(0, 0, 0, currentY)
+                        currentY = currentY + e._zone.Size.Y.Offset + 5
+                    end
                 end
-                self._frame.Size = UDim2.new(0, 210, 0, math.max(newHeight, 0))
+                
+                -- Обновляем размер секции
+                self._frame.Size = UDim2.new(0, 210, 0, math.max(currentY, 0))
                 updateCanvasSize()
                 
                 function dropdown:Set(option)
