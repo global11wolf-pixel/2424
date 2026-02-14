@@ -371,7 +371,7 @@ function Library:CreateSection(tab, name, position)
     local sectionData = {
         Frame = Section,
         Elements = {},
-        YOffset = 0
+        YOffset = 5  -- Небольшой отступ сверху для элементов
     }
     
     table.insert(tab.Sections, sectionData)
@@ -387,7 +387,7 @@ end
 function Library:CreateToggle(section, name, default, callback)
     local ToggleZone = Instance.new("Frame")
     ToggleZone.Name = "ToggleZone"
-    ToggleZone.Size = UDim2.new(0, 210, 0, 30)
+    ToggleZone.Size = UDim2.new(1, 0, 0, 30)
     ToggleZone.Position = UDim2.new(0, 0, 0, section.YOffset)
     ToggleZone.BackgroundTransparency = 1
     ToggleZone.Parent = section.Frame
@@ -453,7 +453,7 @@ function Library:CreateToggle(section, name, default, callback)
     end)
     
     section.YOffset = section.YOffset + 30
-    section.Frame.Size = UDim2.new(0, 210, 0, section.YOffset)
+    section.Frame.Size = UDim2.new(0, 210, 0, math.max(100, section.YOffset + 5))
     
     -- Обновляем CanvasSize
     RunService.Heartbeat:Wait()
@@ -482,7 +482,7 @@ end
 function Library:CreateButton(section, name, callback)
     local ButtonZone = Instance.new("Frame")
     ButtonZone.Name = "ButtonZone"
-    ButtonZone.Size = UDim2.new(0, 210, 0, 35)
+    ButtonZone.Size = UDim2.new(1, 0, 0, 35)
     ButtonZone.Position = UDim2.new(0, 0, 0, section.YOffset)
     ButtonZone.BackgroundTransparency = 1
     ButtonZone.Parent = section.Frame
@@ -526,7 +526,7 @@ function Library:CreateButton(section, name, callback)
     end)
     
     section.YOffset = section.YOffset + 35
-    section.Frame.Size = UDim2.new(0, 210, 0, section.YOffset)
+    section.Frame.Size = UDim2.new(0, 210, 0, math.max(100, section.YOffset + 5))
     
     -- Обновляем CanvasSize
     RunService.Heartbeat:Wait()
@@ -539,7 +539,7 @@ end
 function Library:CreateSlider(section, name, min, max, default, callback)
     local SliderZone = Instance.new("Frame")
     SliderZone.Name = "SliderZone"
-    SliderZone.Size = UDim2.new(0, 210, 0, 30)
+    SliderZone.Size = UDim2.new(1, 0, 0, 30)
     SliderZone.Position = UDim2.new(0, 0, 0, section.YOffset)
     SliderZone.BackgroundTransparency = 1
     SliderZone.Parent = section.Frame
@@ -640,7 +640,7 @@ function Library:CreateSlider(section, name, min, max, default, callback)
     end)
     
     section.YOffset = section.YOffset + 30
-    section.Frame.Size = UDim2.new(0, 210, 0, section.YOffset)
+    section.Frame.Size = UDim2.new(0, 210, 0, math.max(100, section.YOffset + 5))
     
     -- Обновляем CanvasSize
     RunService.Heartbeat:Wait()
@@ -658,7 +658,7 @@ end
 function Library:CreateBind(section, name, defaultKey, callback)
     local BindZone = Instance.new("Frame")
     BindZone.Name = "BindZone"
-    BindZone.Size = UDim2.new(0, 210, 0, 30)
+    BindZone.Size = UDim2.new(1, 0, 0, 30)
     BindZone.Position = UDim2.new(0, 0, 0, section.YOffset)
     BindZone.BackgroundTransparency = 1
     BindZone.Parent = section.Frame
@@ -731,7 +731,7 @@ function Library:CreateBind(section, name, defaultKey, callback)
     end)
     
     section.YOffset = section.YOffset + 30
-    section.Frame.Size = UDim2.new(0, 210, 0, section.YOffset)
+    section.Frame.Size = UDim2.new(0, 210, 0, math.max(100, section.YOffset + 5))
     
     -- Обновляем CanvasSize
     RunService.Heartbeat:Wait()
@@ -750,7 +750,7 @@ end
 function Library:CreateInput(section, name, placeholder, callback)
     local InputZone = Instance.new("Frame")
     InputZone.Name = "InputZone"
-    InputZone.Size = UDim2.new(0, 210, 0, 40)
+    InputZone.Size = UDim2.new(1, 0, 0, 40)
     InputZone.Position = UDim2.new(0, 0, 0, section.YOffset)
     InputZone.BackgroundTransparency = 1
     InputZone.Parent = section.Frame
@@ -797,7 +797,7 @@ function Library:CreateInput(section, name, placeholder, callback)
     end)
     
     section.YOffset = section.YOffset + 40
-    section.Frame.Size = UDim2.new(0, 210, 0, section.YOffset)
+    section.Frame.Size = UDim2.new(0, 210, 0, math.max(100, section.YOffset + 5))
     
     -- Обновляем CanvasSize
     RunService.Heartbeat:Wait()
@@ -810,7 +810,7 @@ end
 function Library:CreateDropdown(section, name, options, default, callback)
     local DropdownZone = Instance.new("Frame")
     DropdownZone.Name = "DropdownZone"
-    DropdownZone.Size = UDim2.new(0, 210, 0, 35)
+    DropdownZone.Size = UDim2.new(1, 0, 0, 35)
     DropdownZone.Position = UDim2.new(0, 0, 0, section.YOffset)
     DropdownZone.BackgroundTransparency = 1
     DropdownZone.Parent = section.Frame
@@ -934,7 +934,7 @@ function Library:CreateDropdown(section, name, options, default, callback)
     updateList()
     
     section.YOffset = section.YOffset + 35
-    section.Frame.Size = UDim2.new(0, 210, 0, section.YOffset)
+    section.Frame.Size = UDim2.new(0, 210, 0, math.max(100, section.YOffset + 5))
     
     -- Обновляем CanvasSize
     RunService.Heartbeat:Wait()
